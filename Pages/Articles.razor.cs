@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
+using Azure.Core;
 
 namespace Virtualize_bug.Pages;
 
@@ -8,6 +9,8 @@ namespace Virtualize_bug.Pages;
 public partial class Articles : ComponentBase
 {
     [Inject] IDbContextFactory<Context> DbFactory { get; set; } = null!;
+
+    [Inject] NavigationManager NavigationManager { get; set; } = null!;
 
     private async ValueTask<ItemsProviderResult<DTO.Article>> LoadEmployees(ItemsProviderRequest request)
     {
@@ -32,6 +35,10 @@ public partial class Articles : ComponentBase
             Description = x.Details.Description,
             Created = x.Details.Created
         }).ToList();
+
+        Console.WriteLine("{0} {1} {2}", request.Count, count, request.StartIndex);
+
+        NavigationManager.NavigateTo($"/Articles/?s={request.StartIndex}", replace: true);
 
         return new ItemsProviderResult<DTO.Article>(dto3, count);
     }

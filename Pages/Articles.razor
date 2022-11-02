@@ -1,11 +1,13 @@
 ﻿<Virtualize Context="article" ItemsProvider="@LoadEmployees">
     <ItemContent>
-        <div >
+        <div style="height: 50px;">
             <h3>@article.Title</h3>
             <p>@article.Content</p>
         </div>
     </ItemContent>
     <Placeholder>
-                In progres...
+        <div style="height: 50px;">
+            In progress...
+        </div>
     </Placeholder>
 </Virtualize>
