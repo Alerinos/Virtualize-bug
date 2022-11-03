@@ -28,7 +28,16 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-
+    
+    <script>
+    const origScrollTo = window.scrollTo;
+    window.scrollTo = (x, y) => {
+        const shouldSkip = true; // TODO: Insert your own logic here
+        if (x === 0 && y === 0 && shouldSkip)
+            return;
+        return origScrollTo.apply(this, arguments);
+    };
+</script>
     <script src="_framework/blazor.server.js"></script>
 </body>
 </html>

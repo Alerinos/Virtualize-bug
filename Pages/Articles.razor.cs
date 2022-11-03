@@ -38,7 +38,7 @@ public partial class Articles : ComponentBase
 
         Console.WriteLine("{0} {1} {2}", request.Count, count, request.StartIndex);
 
-        NavigationManager.NavigateTo($"/Articles/?s={request.StartIndex}", replace: true);
+        NavigationManager.NavigateTo($"/Articles?s={request.StartIndex}", replace: true);
 
         return new ItemsProviderResult<DTO.Article>(dto3, count);
     }
