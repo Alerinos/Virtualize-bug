@@ -1,0 +1,16 @@
+﻿@page "/bindtest"
+
+<input @bind="searchText" @bind:after="PerformSearch" />
+
+<span>Result @(searchText ?? "empty")</span>
+
+@code {
+    string? searchText;
+
+    async Task PerformSearch()
+    {
+        Console.WriteLine(searchText);
+        
+        await Task.CompletedTask;
+    }
+}
