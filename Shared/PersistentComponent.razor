@@ -1,0 +1,38 @@
+﻿@implements IDisposable
+@inject PersistentComponentState ApplicationState
+
+<h2>Component @data</h2>
+
+@code {
+    private string data = "Not work";
+    private PersistingComponentStateSubscription persistingSubscription;
+
+    protected override async Task OnInitializedAsync()
+    {
+        persistingSubscription = ApplicationState.RegisterOnPersisting(PersistData);
+
+        if (!ApplicationState.TryTakeFromJson<string>("PersistentComponent", out var restored))
+        {
+            Console.WriteLine("Create PersistentComponent");
+            data = "Work";
+            await Task.CompletedTask;
+        }
+        else
+        {
+            Console.WriteLine("Get PersistentComponent");
+            data = restored!;
+        }
+    }
+
+    private Task PersistData()
+    {
+        ApplicationState.PersistAsJson("PersistentComponent", data);
+
+    return Task.CompletedTask;
+    }
+
+    void IDisposable.Dispose()
+    {
+    persistingSubscription.Dispose();
+    }
+}

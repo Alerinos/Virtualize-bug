@@ -14,7 +14,7 @@ public partial class Articles : ComponentBase
 
     private async ValueTask<ItemsProviderResult<DTO.Article>> LoadEmployees(ItemsProviderRequest request)
     {
-        await Task.Delay(TimeSpan.FromSeconds(1));
+        //await Task.Delay(TimeSpan.FromSeconds(1));
 
         using var context = DbFactory.CreateDbContext();
 
